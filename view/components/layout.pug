@@ -1,0 +1,25 @@
+doctype html
+html 
+  head
+    title MAL
+    meta(name='viewport' content='width=device-width, inital-scale=1')
+    link(rel='stylesheet' type="text/css" href='/assets/css/main.css')
+    script(src="/js/main.js")
+    script(src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js")
+      
+  body
+    .site
+      .site__header#myHeader
+        .site__header__logo
+          //- a(href="/")
+          //-   img.logo(src="/images/download.png")
+        include nav
+      .site__content
+        .site__content__main
+        block content
+      //- .site__footer
+      //-   p &#9400; Developer
+        
+
+
+    

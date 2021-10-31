@@ -1,0 +1,32 @@
+extends ../components/layout
+block content
+    table#tableID
+      caption Clients
+      thead
+        tr
+          th(scope='col') Fname
+          th(scope='col') Lname
+      tbody
+      each test in tests
+        tr
+          td(data-label='fname') #{test.fname}
+          td(data-label='lname') #{test.lname}
+    h1 About
+    
+    h1 Timesheets
+    form(ref='uploadForm'  
+        id='uploadForm'  
+        action='/about/'
+        method='post'  
+        encType="multipart/form-data") 
+        .upload-btn-wrapper
+            .up Choose file here
+            input.file-select(type="file" name="pls" class='file') 
+        button.btn-file#upload(type='submit') Upload
+
+    form(ref='uploadForm'  
+        id='down'  
+        action='/about21/'
+        method='post'  
+        ) 
+        button.btn-file#upload(type='submit') Download
