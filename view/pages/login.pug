@@ -1,0 +1,18 @@
+extends ../components/layout
+block content
+  form#login.loginForm(method= 'POST')
+    h1 Login
+    br
+    br
+    input(type="text" name="UserID" placeholder="Username" autocomplete="off" required)
+    br
+    p
+    br
+    input(type="password" name="UserPass" placeholder="Password" autocomplete="off" required)
+    br
+    br
+    br
+    br
+    br
+    button.signIn(type='submit')
+      p.button-text LOGIN

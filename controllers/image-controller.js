@@ -1,7 +1,6 @@
-const {TestStuff} = require("../services/about-service")
+const {TestStuff} = require("../services/image-service")
 const GetApples = async () => {
     const result = await TestStuff();
-    console.log('controller: '+result[0].fname);
     return (result);
   };
 

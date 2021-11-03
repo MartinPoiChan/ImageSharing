@@ -28,7 +28,9 @@ const upload = multer({
   limits: { fileSize: maxSize },
 })
 
-
+const imageUpload = (meta, tags)=>{
+  
+}
 module.exports={upload};
 
 

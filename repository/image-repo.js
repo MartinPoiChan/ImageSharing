@@ -8,9 +8,9 @@ db.connect(function(err) {
     console.log("Connected to DB laundry");
 });
 
-const GetClients = (req, res) => {
+const GetClients = () => {
     return new Promise((resolve, reject)=> {
-        let sql_SelectClient = "SELECT * FROM clients";
+        let sql_SelectClient = "SELECT * FROM users";
         db.query(sql_SelectClient, function(err, result) {
             if (err){
                 reject(err)
@@ -20,5 +20,18 @@ const GetClients = (req, res) => {
         });
     })
 };
+
+const insertMeta =(url, geo, date, user) =>{
+    return new Promise((resolve, reject)=> {
+        let sql_SelectClient = "INSERT into img VALUES()";
+        db.query(sql_SelectClient, function(err, result) {
+            if (err){
+                reject(err)
+                return
+            }
+            resolve(result)
+        });
+    })
+}
 
 module.exports = {GetClients}

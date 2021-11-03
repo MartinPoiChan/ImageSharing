@@ -6,7 +6,7 @@ const express = require('express');
 //#endregion
 
 //#region Configuration objects
-const { StandardResponse } = require('./tools/response-object');
+const { StandardResponse } = require('../functions/response-object');
 //*: Create a connection to the database
 //const connection = mysql.createConnection(databaseConfig);
 //#endregion
