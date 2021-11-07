@@ -1,0 +1,45 @@
+extends ../components/layout
+block content
+    if results.length > 0 
+        table#tableID
+            caption Images
+            thead
+            tr
+                th(scope='col') Image Name
+                th(scope='col') Captured By
+                th(scope='col') type
+                th(scope='col') date
+                th(scope='col') location
+                th(scope='col') size
+                th(scope='col') view
+                th(scope='col') download
+                th(scope='col') delete
+            tbody
+            each result in results
+                tr
+                    td(data-label='Image Name') #{result.img_name}
+                    td(data-label='Captured By') #{result.fname +' '+ result.lname}
+                    td(data-label='type') #{result.type}
+                    td(data-label='date') #{(result.capture_date).toDateString()}
+                    //-td(data-label='date') #{(result.capture_date)}
+                    td(data-label='location') #{result.location}
+                    td(data-label='size') #{(result.size/1000000).toFixed(2)+' MB'}
+                    td(data-label='view')
+                    a(onclick="test (this)")
+                        img(alt='img_path' src='I mageSharing/uploads/Test (4).png1636117045186-262696187.png')
+                    td(data-label='Download')
+                    form(ref='uploadForm'  
+                        id='down'  
+                        action='/about21/'+result.down_name
+                        method='post'  
+                        ) 
+                        button.btn-file#upload(type='submit') Download
+                    td(data-label='Delete')
+                    form(ref='uploadForm'  
+                        id='down'  
+                        action='/delete/'+result.down_name
+                        method='post'  
+                        ) 
+                        button.btn-file#upload(type='submit') delete
+    else 
+        h1 No Data

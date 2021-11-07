@@ -8,7 +8,7 @@ const express = require('express'),
       session    = require("express-session"),
       nedbstore  = require("nedb-session-store")(session),
       nedb      = require("nedb"),
-      flash = require('connect-flash');
+      flash = require('connect-flash')
 
 const port = process.env.PORT || 591;
 app.set('views', path.join(__dirname, 'view/pages'));
@@ -51,11 +51,13 @@ app.post('/', async(req, res) => {
 });
 
 app.get('/signout', function(req, res) {
-  req.session.loggedin = false
-  req.session.fname = undefined;
-  req.session.lname = undefined;
-  req.session.uid = undefined;
-  res.redirect('/');
+  req.session.destroy(function(err) {
+    if(err) {
+        console.log(err);
+    } else {
+        res.redirect('/');
+    }
+  })
 })
 
 app.listen(port, function() {

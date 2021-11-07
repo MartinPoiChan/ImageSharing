@@ -9,21 +9,17 @@ nav#cssmenu
         a(href='/login') Login
     if loggedin
       li
-        a(href='/about') About
+        a(href='/display') Images
         ul.sub-menu
           li
-            a(href='/employees') List
+            a(href='/display/all') All images
+          li
+            a(href='/display/owner') Your images
+          li
+            a(href='/display/shared') Shared images
+          li
+            a(href='/upload') Upload
       li
-        a(href='/') Users 
-      li
-        a(href='/') Timesheets
-      li
-        a(href='/') Timesheets Clocked In
-      li
-        a(href='/') Organization Unit
-      li
-        a(href='/') Job Grade
-      li
-        a(href='/') Leave
+        a(href='/') blank
       li
         a(href='/signout') Sign out

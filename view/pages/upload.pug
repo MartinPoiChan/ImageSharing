@@ -1,0 +1,22 @@
+extends ../components/layout
+block content
+  form(ref='uploadForm'  
+      id='uploadForm'  
+      action='/upload/'
+      method='post'  
+      encType="multipart/form-data") 
+      .upload-btn-wrapper
+          .up Choose file here
+          input.file-select(type="file" name="pls" class='file') 
+      h1 Meta
+      p 
+        b geo
+        input(type="text" name="geo" placeholder="Geo" autocomplete="off" required)
+      br
+      p 
+        b date
+        input(type="datetime-local" name="date" placeholder="Date" autocomplete="off" required)
+      br
+      textarea#tags(name='tags' rows='4' cols='50')
+      br
+      button.btn-file#upload(type='submit') Upload
