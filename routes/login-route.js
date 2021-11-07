@@ -10,7 +10,6 @@ const express = require('express'),
 app.set('views', path.join(__dirname, '../view/pages'));
 app.set('view engine', 'pug');
 app.use(express.static("assets"));
-// app.use(require('connect-flash')());
 app.get('/login', async(req, res) => {
     res.render('login',buildParams(req, {page:'login'}))
 });
@@ -24,7 +23,7 @@ app.post('/login', async(req, res) => {
         req.session.lname = test.result[0].lname;
         req.session.uid = test.result[0].user_id;
         req.flash('success', test.message);
-        res.redirect('/about');
+        res.redirect('/upload');
     }
     else{
         req.flash('error', test.message);

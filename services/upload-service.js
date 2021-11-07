@@ -1,11 +1,12 @@
-const multer  = require('multer')
-
+const multer  = require('multer'),  
+mime = require('mime-types')
 const fileStorageEngine = multer.diskStorage({
   destination: (req, file, cb) => {
     cb(null, "./uploads/"); //important this is a direct path fron our current file to storage location
   },
   filename: (req, file, cb) => {
-    cb(null,file.originalname);
+    const uniqueSuffix = Date.now() + '-' + Math.round(Math.random() * 1E9)
+    cb(null,file.originalname + uniqueSuffix + '.' + mime.extension(file.mimetype));
   },
 });
 
@@ -20,7 +21,8 @@ const upload = multer({
       file.mimetype == "image/jpeg"
     ) {
       cb(null, true);
-    } else {
+    } 
+    else {
       cb(null, false);
       return cb(new Error("Only .png, .jpg and .jpeg format allowed!"));
     }
@@ -32,16 +34,3 @@ const imageUpload = (meta, tags)=>{
   
 }
 module.exports={upload};
-
-
-
-// multer({
-//   dest    : './uploads/',
-//   onError : function(err, next) {
-//     console.log('error', err);
-//     next(err);
-//   }
-// }),
-// function(req, res) {
-//   res.status(204).end();
-// }
