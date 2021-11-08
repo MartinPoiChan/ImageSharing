@@ -15,7 +15,7 @@ const getImgTest = async (user,type) => {
       result = await getSharedImages(user);
       break;
     default:
-      result = '';
+      result = await getAllImages(user);
   }
     if(result.length==0){
     return response('No images found', '', 69, true)
@@ -47,9 +47,7 @@ const editImg = async () => {
 
 }
 
-const editImg = async () => {
 
-}
 module.exports = {
   getImgTest,
   insertImg,

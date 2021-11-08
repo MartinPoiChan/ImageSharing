@@ -2,7 +2,7 @@ const multer  = require('multer'),
 mime = require('mime-types')
 const fileStorageEngine = multer.diskStorage({
   destination: (req, file, cb) => {
-    cb(null, "./uploads/"); //important this is a direct path fron our current file to storage location
+    cb(null, "./assets/uploads/"); //important this is a direct path fron our current file to storage location
   },
   filename: (req, file, cb) => {
     const uniqueSuffix = Date.now() + '-' + Math.round(Math.random() * 1E9)

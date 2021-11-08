@@ -909,3 +909,18 @@ setTimeout(function(){newTab.document.body.innerHTML = element.innerHTML;
   return false;
 }
 //#endregion
+
+// Fancybox Configuration
+// $('[data-fancybox="gallery"]').fancybox({
+// 	buttons: [
+// 	  "slideShow",
+// 	  "thumbs",
+// 	  "zoom",
+// 	  "fullScreen",
+// 	  "share",
+// 	  "close"
+// 	],
+// 	loop: false,
+// 	protect: true
+//   });
+  
