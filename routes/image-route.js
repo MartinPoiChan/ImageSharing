@@ -23,15 +23,7 @@ app.get('/display/:type', async(req, res) => {
     let type = req.params.type
     console.log(type);
     let result
-    if (type == 'all') {
-        result =  await lll(req.session.uid,type);
-    }
-    else if(type == 'owner'){
-        result =  await lll(req.session.uid,type);
-    }
-    else if(type == 'shared'){
-        result =  await lll(req.session.uid,type);
-    }
+    result =  await lll(req.session.uid,type);
     console.log(result);
     res.render('display', buildParams(req,{results:result.result, fruit:'Apples'}));
 });
@@ -55,20 +47,21 @@ replace it with an href button on the front
 */
 app.post('/upload/:path',async(req, res) => {
     console.log(req.params.path);
-    res.download('/'+req.params.path);
+    res.download('assets/uploads/'+req.params.stuff);
 });
 
 app.post('/about21/:stuff',async(req, res) => {
     console.log('.'+req.params.stuff);
-    res.download('./uploads/'+req.params.stuff);
+    res.download('assets/uploads/'+req.params.stuff);
 });
 
 app.post('/delete/:stuff',async(req, res) => {
     try{
         deleteImage(req.params.stuff)
-        fs.unlinkSync('./uploads/'+req.params.stuff)
+        fs.unlinkSync('assets/uploads/'+req.params.stuff)
         req.flash('success', 'File removed');
-        res.redirect('/upload');
+        res.redirect('/display/all');
+        // try not redirect and just post
     }
     catch(err){
         console.log(err);

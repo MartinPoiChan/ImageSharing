@@ -1,5 +1,29 @@
 extends ../components/layout
 block content
+    main.main
+        .container
+            each result in results
+                .card
+                    .card-image
+                        a(href='/uploads/'+result.down_name data-fancybox='gallery' data-caption=result.img_name)
+                            img(src='/uploads/'+result.down_name alt= result.img_name)
+                    .card-foot
+                        p #{result.img_name}
+                        .icons
+                            form(ref='uploadForm'  
+                                id='down'  
+                                action='/delete/'+result.down_name
+                                method='post'  
+                                ) 
+                                button.btn-file#upload(type='submit') delete
+                            form(ref='uploadForm'  
+                                id='down'  
+                                action='/about21/'+result.down_name
+                                method='post'  
+                                ) 
+                                button.btn-file#upload(type='submit')
+                                    span(class="glyphicon glyphicon-search") Search
+                                    //Get the icons to work
     if results.length > 0 
         table#tableID
             caption Images
@@ -11,7 +35,6 @@ block content
                 th(scope='col') date
                 th(scope='col') location
                 th(scope='col') size
-                th(scope='col') view
                 th(scope='col') download
                 th(scope='col') delete
             tbody
@@ -21,25 +44,21 @@ block content
                     td(data-label='Captured By') #{result.fname +' '+ result.lname}
                     td(data-label='type') #{result.type}
                     td(data-label='date') #{(result.capture_date).toDateString()}
-                    //-td(data-label='date') #{(result.capture_date)}
                     td(data-label='location') #{result.location}
                     td(data-label='size') #{(result.size/1000000).toFixed(2)+' MB'}
-                    td(data-label='view')
-                    a(onclick="test (this)")
-                        img(alt='img_path' src='I mageSharing/uploads/Test (4).png1636117045186-262696187.png')
                     td(data-label='Download')
-                    form(ref='uploadForm'  
-                        id='down'  
-                        action='/about21/'+result.down_name
-                        method='post'  
-                        ) 
-                        button.btn-file#upload(type='submit') Download
+                        form(ref='uploadForm'  
+                            id='down'  
+                            action='/about21/'+result.down_name
+                            method='post'  
+                            ) 
+                            button.btn-file#upload(type='submit') Download
                     td(data-label='Delete')
-                    form(ref='uploadForm'  
-                        id='down'  
-                        action='/delete/'+result.down_name
-                        method='post'  
-                        ) 
-                        button.btn-file#upload(type='submit') delete
+                        form(ref='uploadForm'  
+                            id='down'  
+                            action='/delete/'+result.down_name
+                            method='post'  
+                            ) 
+                            button.btn-file#upload(type='submit') delete
     else 
         h1 No Data

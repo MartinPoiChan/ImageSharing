@@ -8,12 +8,111 @@ html, body
   width: 100%
   font-family: sans-serif
   background-color: #ebf5fa
+  font-size: 1rem
+  font-weight: normal
+  line-height: 1.5
+  color: $color-black
 h1
   margin-top: 0
 a
   color: $black
 
-//#region______________________________ Site Wrapper ______________________________
+
+// Start
+
+  body 
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif
+  font-size: 1rem
+  font-weight: normal
+  line-height: 1.5
+  color: $color-black
+  background: $color-white
+
+.container 
+  max-width: 80rem
+  width: 100%
+  padding: 4rem 2rem
+  margin: 0 auto
+
+.main 
+  .container 
+    display: grid
+    grid-template-columns: repeat(3, 1fr)
+    grid-gap: 1rem
+    justify-content: center
+    align-items: center
+  
+  .card 
+    color: $color-black
+    border-radius: 2px
+    background: $color-white
+    box-shadow: $box-shadow
+
+    &-image 
+      position: relative
+      display: block
+      width: 100%
+      padding-top: 70%
+      background: $color-white
+
+      img 
+        display: block
+        position: absolute
+        top: 0
+        left: 0
+        width: 100%
+        height: 100%
+        object-fit: cover
+    &-foot
+      box-shadow: $box-shadow
+      background-color: $black
+      color: $white2
+      min-height: 45px
+      p
+        max-width: 50%
+        float: left
+        margin: auto 0px auto 10px
+        white-space: nowrap
+        overflow: hidden
+        text-overflow: ellipsis
+        background-color: $black
+      .icons
+        float: right
+        width: 100px
+        height: auto
+        background-color: red
+@media only screen and (max-width: 600px)
+  .main 
+    .container 
+      display: grid
+      grid-template-columns: 1fr
+      grid-gap: 1rem
+
+
+  
+
+//End
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+//#region _________________________ Open image ________________________________
 .site
   width: 100%
   height: 100%
@@ -593,3 +692,5 @@ table
       > li.has-sub > ul > li.active > a, ul > li.has-sub > ul > li.active > a
         border-top: none
 //#endregion
+
+
