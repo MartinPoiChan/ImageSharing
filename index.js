@@ -39,8 +39,14 @@ app.use('', routes);
 // Routes for login
 app.use('', require("./routes/login-route"));
 
-// Routes for about
+// Routes for image
 app.use('', require("./routes/image-route"));
+
+// Routes for register
+app.use('', require("./routes/register-route"));
+
+// Routes for permission
+app.use('', require("./routes/permission-route"));
 
 app.get('/', async(req, res) => {
   res.render('index')

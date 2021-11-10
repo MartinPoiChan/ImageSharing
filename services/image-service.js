@@ -1,6 +1,7 @@
 const 
   {getAllImages, getOwnerImages, getSharedImages, insertMeta, deleteImage} = require('../repository/image-repo'),
-  {response} = require("../functions/response-object")
+  {response} = require("../functions/response-object");
+const { decrypt } = require('./crypto-service');
 
 const getImgTest = async (user,type) => {
   let result 
@@ -21,6 +22,10 @@ const getImgTest = async (user,type) => {
     return response('No images found', '', 69, true)
   }
   else if(result.length>0){
+    result.forEach(element => {
+      element.fname = decrypt(element.fname)
+      element.lname = decrypt(element.lname)
+    });
     return response('Images found', result, 68, true)
   }
   return result
@@ -46,8 +51,6 @@ const deleteImg = async (img_url) => {
 const editImg = async () => {
 
 }
-
-
 module.exports = {
   getImgTest,
   insertImg,

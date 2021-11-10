@@ -6,4 +6,3 @@ exports.login = (message, results, statusCode, bool) => {
       results
     };
   };
-  

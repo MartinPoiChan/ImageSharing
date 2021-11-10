@@ -1,0 +1,35 @@
+extends ../components/layout
+block content
+  table#tableID
+    caption Images
+    thead
+    tr
+        th(scope='col') ID
+        th(scope='col') Name
+        th(scope='col') Grant
+        th(scope='col') Remove
+    tbody
+    each result in results
+        tr
+            td(data-label='Image Name') #{result.user_id}
+            td(data-label='Captured By') #{result.fname +' '+result.lname}
+            if result.access == 1
+              td(data-label='') -
+            else
+              td(data-label='grant')
+                  form(ref='uploadForm'  
+                      id='share'  
+                      action='/permission/add/'+down+'/'+result.user_id
+                      method='post'  
+                      ) 
+                      button.btn-file#upload(type='submit') Grant
+            if result.access == 0
+              td(data-label='') -
+            else
+              td(data-label='remove')
+                  form(ref='uploadForm'  
+                      id='share'  
+                      action='/permission/remove/'+down+'/'+result.user_id
+                      method='post'  
+                      ) 
+                      button.btn-file#upload(type='submit') Remove

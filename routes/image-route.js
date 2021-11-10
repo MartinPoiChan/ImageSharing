@@ -4,10 +4,12 @@ const express = require('express'),
       path    = require('path'),
       {buildParams} = require('../functions/buildparams'),
       {lll, insertImage, deleteImage} = require('../controllers/image-controller'),
+      {getlog} = require('../controllers/permission-controller'),
       {upload} = require('../services/upload-service'),
       mime = require('mime-types'),
-      fs = require('fs')
-
+      fs = require('fs'),
+      {getAccess} = require('../repository/permission-repo'),
+      {getOneImage} = require('../repository/image-repo')
 app.set('views', path.join(__dirname, '../view/pages'));
 app.set('view engine', 'pug');
 app.use(express.static("assets"));
@@ -21,11 +23,32 @@ app.get('/upload', async(req, res) => {
 
 app.get('/display/:type', async(req, res) => {
     let type = req.params.type
-    console.log(type);
     let result
     result =  await lll(req.session.uid,type);
-    console.log(result);
     res.render('display', buildParams(req,{results:result.result, fruit:'Apples'}));
+});
+
+
+app.get('/test/:down', async(req, res) => {
+    if(!req.session.loggedin)
+    {
+
+    }
+    console.log(req.session.uid);
+    console.log(req.params.down);
+    let result = undefined
+    //let result = await getAccess(req.params.down, req.session.uid)
+    if(result == undefined){
+        req.flash('error', 'YOu do not have permission');
+        res.redirect('/')
+    }
+    else{
+        req.flash('success', 'http://localhost:591/test/'+req.params.down);
+        console.log(result);
+        let pls = await getOneImage(req.params.down)
+        console.log(pls);
+        res.render('display', buildParams(req,{results:pls, fruit:'Apples'}));
+    }
 });
 
 /*
@@ -37,9 +60,21 @@ app.post('/upload',upload.single('pls'),async(req, res) => {
     console.log(req.file);
     console.log(req.body.tags);
     insertImage(req.file.path, req.body.geo, req.body.date, req.session.uid, req.file.originalname, req.file.size, mime.extension(req.file.mimetype),req.file.filename, req.body.tags)
-
     res.redirect('/upload');
 });
+
+
+app.post('/sharedlink/:down_name'),async(req, res) => {
+    let down_name = req.params.down_name
+    req.flash('success', 'http://localhost:591/sharedlink/'+down_name);
+    res.redirect('/')
+}
+
+app.get('/sharedlink'),async(req, res) => {
+    //let result = await getAccess(req.session.uid, req.params.down_name)
+    //console.log(result);
+    res.render('display');
+}
 
 /*
 possibley change to a get so you can negate the form on the front end 

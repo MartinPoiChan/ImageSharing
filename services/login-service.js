@@ -9,15 +9,23 @@ const TestLogin = async (id, pass) => {
     if(test.length == 0){
         return response('No user', '', 401, false)
     }
-    let plain = await decrypt(test[0].pass);
-    if(pass==''){
-        return response('No password provided', '', 401, false)
+    try{
+        let plain = await decrypt(test[0].pass)    
+        test[0].fname = (decrypt(test[0].fname)) 
+        test[0].lname = (decrypt(test[0].lname)) 
+        if(pass==''){
+            return response('No password provided', '', 401, false)
+        }
+        else if(plain == pass){
+            return response('Successful login.', test, 200, true)
+        }
+        else{
+            return response('Something broke', '', 401, false)
+        }
     }
-    else if(plain == pass){
-        return response('Successful login.', test, 200, true)
-    }
-    else{
-        return response('Something broke', '', 401, false)
+    catch(err){
+        console.log(err);
+        return response('Error decrypting', '', 500, false)
     }
 };
 

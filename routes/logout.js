@@ -11,6 +11,7 @@ app.set('views', path.join(__dirname, '../view/pages'));
 app.set('view engine', 'pug');
 app.use(express.static("assets"));
 // app.use(require('connect-flash')());
+
 app.get('/login', async(req, res) => {
     res.render('login',buildParams(req, {page:'login'}))
 });

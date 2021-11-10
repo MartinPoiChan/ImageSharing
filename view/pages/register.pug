@@ -1,0 +1,21 @@
+extends ../components/layout
+block content
+    h1 REGISETR HERE
+    form#login.loginForm(method= 'POST')
+        h1 Register
+        br
+        br
+        input(type="text" name="fname" placeholder="First Name" autocomplete="off" required)
+        br
+        br
+        input(type="text" name="lname" placeholder="Last Name" autocomplete="off" required)
+        br
+        br
+        input(type="text" name="email" placeholder="Email" autocomplete="off" required)
+        br
+        br
+        input(type="password" name="pass" placeholder="Password" autocomplete="off" required)
+        br
+        br
+        button.signIn(type='submit')
+            p.button-text Register

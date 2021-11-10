@@ -22,7 +22,7 @@ block content
                                 method='post'  
                                 ) 
                                 button.btn-file#upload(type='submit')
-                                    span(class="glyphicon glyphicon-search") Search
+                                    span(class="glyphicon glyphicon-search") DOwnload
                                     //Get the icons to work
     if results.length > 0 
         table#tableID
@@ -37,6 +37,7 @@ block content
                 th(scope='col') size
                 th(scope='col') download
                 th(scope='col') delete
+                th(scope='col') share
             tbody
             each result in results
                 tr
@@ -60,5 +61,19 @@ block content
                             method='post'  
                             ) 
                             button.btn-file#upload(type='submit') delete
+                    td(data-label='Share')
+                        form(ref='uploadForm'  
+                            id='share'  
+                            action='/test/'+result.down_name
+                            method='get'  
+                            ) 
+                            button.btn-file#upload(type='submit') share
+                    td(data-label='Permission')
+                        form(ref='uploadForm'  
+                            id='share'  
+                            action='/permission/'+result.down_name
+                            method='get'  
+                            ) 
+                            button.btn-file#upload(type='submit') share
     else 
         h1 No Data
