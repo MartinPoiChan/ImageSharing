@@ -1,5 +1,6 @@
 const 
-  {getAllImages, getOwnerImages, getSharedImages, insertMeta, deleteImage} = require('../repository/image-repo'),
+  {getUser} = require('../repository/user-repo'),
+  {getAllImages, getOwnerImages, getSharedImages, insertMeta, deleteImage, editMeta, getOneImage, getImageTag} = require('../repository/image-repo'),
   {response} = require("../functions/response-object");
 const { decrypt } = require('./crypto-service');
 
@@ -31,9 +32,9 @@ const getImgTest = async (user,type) => {
   return result
 };
 
-const insertImg = async (url, geo, date, user, name, size, type, down, tags) => {
+const insertImg = async (url, geo, date, user, name, size, type, down, tags, captured) => {
   const tagsSplit = tags.split('#');
-  const check = await insertMeta(url, geo, date, user, name, size, type, down, tagsSplit)
+  const check = await insertMeta(url, geo, date, user, name, size, type, down, tagsSplit, captured)
   if(check == true){
     return response('Insert image data', '', 201, true)
   }
@@ -48,12 +49,38 @@ const deleteImg = async (img_url) => {
   return response('Error occured while deleting.', check, 500, false)
 }
 
-const editImg = async () => {
-
+const editImg = async (geo, date, down, tags, capture) => {
+  const tagsSplit = tags.split('#');
+  const result = await editMeta(geo, date, down, tagsSplit, capture)
+  return result
 }
+
+const getImg = async (down) => {
+  const result = await getOneImage(down)
+  return result
+}
+
+const getUserSevice = async (user) => {
+  const result = await getUser(user)
+  return result
+}
+
+const getImageTags = async (down) => {
+  const resultTag = await getImageTag(down)
+  let result = ''
+  resultTag.forEach(element => {
+    result = result+ '#' +element.tag_name
+    console.log(result);
+  });
+  return result
+}
+
 module.exports = {
   getImgTest,
   insertImg,
   deleteImg,
-  editImg
+  editImg,
+  getImg,
+  getImageTags,
+  getUserSevice
 };

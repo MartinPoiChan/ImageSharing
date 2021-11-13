@@ -11,10 +11,22 @@ app.set('views', path.join(__dirname, '../view/pages'));
 app.set('view engine', 'pug');
 app.use(express.static("assets"));
 app.get('/login', async(req, res) => {
-    res.render('login',buildParams(req, {page:'login'}))
+    if(req.session.loggedin)
+    {
+        req.flash('error', 'Already logged in');
+        res.redirect('/display/all')
+    }
+    else{
+        res.render('login',buildParams(req, {page:'login'}))
+    }
 });
 
 app.post('/login', async(req, res) => {
+    if(req.session.loggedin)
+    {
+        req.flash('Error', 'Already logged in');
+        res.redirect('/display/all')
+    }
     let test = await getlog(req.body.UserID, req.body.UserPass);
     console.log(test.code);
     if(test.code == 200){

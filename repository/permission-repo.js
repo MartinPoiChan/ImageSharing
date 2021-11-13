@@ -245,7 +245,6 @@ const insertPermission = (down, user) => {
     })
 };
 
-
 const removePermission = (down, user) => {
     let key = 0
     return new Promise((resolve, reject)=> {
@@ -306,6 +305,7 @@ const removePermission = (down, user) => {
         });
     })
 };
+
 //removePermission
 module.exports ={
     getNon,

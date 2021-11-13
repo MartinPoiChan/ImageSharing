@@ -17,6 +17,10 @@ block content
         b date
         input(type="datetime-local" name="date" placeholder="Date" autocomplete="off" required)
       br
+      p 
+        b captured by
+        input(type="text" name="captured" placeholder="captured" autocomplete="off" required)
+      br
       textarea#tags(name='tags' rows='4' cols='50')
       br
       button.btn-file#upload(type='submit') Upload

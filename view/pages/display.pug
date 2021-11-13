@@ -1,79 +1,71 @@
 extends ../components/layout
 block content
+    #records.records2
+        form#live-search.styled(action='' method='post' name='searchform')
+            fieldset#search
+                span
+                    input#filter.s(type='text' onclick="this.value='';" onfocus='this.select()')
+                span
+                    input#filter3.s(type='text' onclick="this.value='';" onfocus='this.select()')
     main.main
         .container
             each result in results
-                .card
-                    .card-image
-                        a(href='/uploads/'+result.down_name data-fancybox='gallery' data-caption=result.img_name)
-                            img(src='/uploads/'+result.down_name alt= result.img_name)
-                    .card-foot
-                        p #{result.img_name}
-                        .icons
-                            form(ref='uploadForm'  
-                                id='down'  
-                                action='/delete/'+result.down_name
-                                method='post'  
-                                ) 
-                                button.btn-file#upload(type='submit') delete
-                            form(ref='uploadForm'  
-                                id='down'  
-                                action='/about21/'+result.down_name
-                                method='post'  
-                                ) 
-                                button.btn-file#upload(type='submit')
-                                    span(class="glyphicon glyphicon-search") DOwnload
-                                    //Get the icons to work
-    if results.length > 0 
-        table#tableID
-            caption Images
-            thead
-            tr
-                th(scope='col') Image Name
-                th(scope='col') Captured By
-                th(scope='col') type
-                th(scope='col') date
-                th(scope='col') location
-                th(scope='col') size
-                th(scope='col') download
-                th(scope='col') delete
-                th(scope='col') share
-            tbody
-            each result in results
-                tr
-                    td(data-label='Image Name') #{result.img_name}
-                    td(data-label='Captured By') #{result.fname +' '+ result.lname}
-                    td(data-label='type') #{result.type}
-                    td(data-label='date') #{(result.capture_date).toDateString()}
-                    td(data-label='location') #{result.location}
-                    td(data-label='size') #{(result.size/1000000).toFixed(2)+' MB'}
-                    td(data-label='Download')
-                        form(ref='uploadForm'  
-                            id='down'  
-                            action='/about21/'+result.down_name
-                            method='post'  
-                            ) 
-                            button.btn-file#upload(type='submit') Download
-                    td(data-label='Delete')
-                        form(ref='uploadForm'  
-                            id='down'  
-                            action='/delete/'+result.down_name
-                            method='post'  
-                            ) 
-                            button.btn-file#upload(type='submit') delete
-                    td(data-label='Share')
-                        form(ref='uploadForm'  
-                            id='share'  
-                            action='/test/'+result.down_name
-                            method='get'  
-                            ) 
-                            button.btn-file#upload(type='submit') share
-                    td(data-label='Permission')
-                        form(ref='uploadForm'  
-                            id='share'  
-                            action='/permission/'+result.down_name
-                            method='get'  
-                            ) 
-                            button.btn-file#upload(type='submit') share
-    else 
-        h1 No Data
+                #records.records2
+                    #article0.recordContainer
+                        .lineDivide
+                        .card
+                            span.listName #{result.img_name}
+                            span.listDate #{result.date}
+                            span.listLocation #{result.location}
+                            .card-image
+                                a(href='/uploads/'+result.down_name data-fancybox='gallery' data-caption=result.img_name+'<br><h1>THis s</h1>')
+                                    img(src='/uploads/'+result.down_name alt= result.img_name)
+                            .card-foot
+                                .icons
+                                    form(ref='uploadForm'  
+                                        id='down'  
+                                        action='/delete/'+result.down_name
+                                        method='post'  
+                                        ) 
+                                        button.btn-file#upload(type='submit') delete
+                                    form(ref='uploadForm'  
+                                        id='down'  
+                                        action='/about21/'+result.down_name
+                                        method='post'  
+                                        ) 
+                                        button.btn-file#upload(type='submit')
+                                            span(class="glyphicon glyphicon-search") Download
+                                            //Get the icons to work
+    script.
+        $(".s").keyup(function (event) {
+        // Retrieve the input field text and reset the count to zero
+        var filter = $(this).val(),
+        count = 0;
+        var activeSearch = $(this).attr('id');
+        var targetSearch = 'listImgName';
+        if (activeSearch == "filter") {
+        targetSearch = "listName"
+        }
+        if (activeSearch == "filter3") {
+        targetSearch = "listLocation"
+        }
+        if (event.keyCode == 8) {
+        $("div.recordContainer span." + targetSearch).each(function () {
+        $(this).parent().show();
+        });
+        }
+        // Loop through the comment list
+        $("div.recordContainer span." + targetSearch + ":visible").each(function () {
+        // If the list item does not contain the text phrase fade it out
+        if ($(this).text().search(new RegExp(filter, "i")) < 0) {
+        $(this).parent().fadeOut("#records");
+        // Show the list item if the phrase matches and increase the count by 1
+        } else {
+        $(this).parent().show();
+        count++;
+        }
+        });
+        // Update the count
+        var numberItems = count;
+        $("#filter-count").text("Matches = " + count);
+        });

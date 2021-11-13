@@ -1,0 +1,19 @@
+extends ../components/layout
+block content
+    form#login.loginForm(method= 'POST')
+        h1 Edit
+        br
+        br
+        input(type="text" name="captured_by" placeholder="Captured By" value= results.img[0].captured_by autocomplete="off" required)
+        br
+        br
+        input(type="text" name="location" placeholder="Location" value= results.img[0].location autocomplete="off" required)
+        br
+        br
+        input(type="datetime-local" name="capture_date" placeholder="Capture Date" value= results.img[0].capture_date autocomplete="off" required)
+        br
+        br
+        textarea#tags(name='tags' rows='4' cols='50') #{results.tag}
+        br
+        button.signIn(type='submit')
+            p.button-text Edit
