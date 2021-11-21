@@ -21,6 +21,7 @@ app.post('/register', async(req, res) => {
     let result = await insertUserc(req.body.fname, req.body.lname, req.body.email, req.body.pass)
     console.log(result.code);
     console.log(result);
+    req.flash('error', 'Invalid file type.');
     res.redirect('/register');
 });
 
