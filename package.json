@@ -23,6 +23,7 @@
     "mysql": "^2.18.1",
     "nedb": "^1.8.0",
     "nedb-session-store": "^1.1.2",
+    "nodemailer": "^6.7.1",
     "pug": "^3.0.2",
     "rimraf": "^3.0.2",
     "routes": "^2.1.0",

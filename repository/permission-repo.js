@@ -75,7 +75,6 @@ const getAccess = (down, user) => {
                     });
                 }
                 else {
-                    //conn.query('SELECT * FROM img', 
                     conn.query('SELECT img_id FROM img WHERE down_name = ?', 
                     [down], 
                     function(err, results) {
@@ -88,7 +87,7 @@ const getAccess = (down, user) => {
                         }
                         else {
                             key = results[0].img_id
-                            conn.query('SELECT * FROM img_access WHERE img_id = ? AND user_id = ?', 
+                            conn.query('SELECT * FROM img_access a JOIN users u ON a.user_id = u.user_id WHERE img_id = ? AND a.user_id != ?', 
                             //conn.query('SELECT * FROM img i JOIN img_access a ON i.img_id = a.img_id JOIN users u ON i.captured_by = u.user_id WHERE u.user_id NOT IN(SELECT user_id FROM img_access WHERE img_id = ?)', 
                             [key, user], 
                             function(err, results) {
@@ -108,12 +107,13 @@ const getAccess = (down, user) => {
                                             });
                                         } 
                                         else {
+                                            console.log('results: '+results);
                                             conn.release();
                                             resolve(results)
                                         }
                                     });
                                 }
-          
+
                             });
                         } 
                     });

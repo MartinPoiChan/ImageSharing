@@ -35,7 +35,7 @@ app.post('/login', async(req, res) => {
         req.session.lname = test.result[0].lname;
         req.session.uid = test.result[0].user_id;
         req.flash('success', test.message);
-        res.redirect('/upload');
+        res.redirect('/display/all');
     }
     else{
         req.flash('error', test.message);

@@ -15,7 +15,7 @@ const getAllImages = (user) => {
                 } 
                 else {
                     //conn.query('SELECT * FROM img', 
-                    conn.query('SELECT * FROM img i JOIN img_access a ON i.img_id = a.img_id JOIN users u ON i.owner = u.user_id WHERE a.user_id=?', 
+                    conn.query("SELECT *, GROUP_CONCAT(DISTINCT tag_name ORDER BY tag_name ASC SEPARATOR '#') AS tags FROM img i JOIN img_access a ON i.img_id = a.img_id JOIN users u ON i.owner = u.user_id JOIN tags t ON i.img_id = t.img_id WHERE a.user_id=? GROUP BY(t.img_id)", 
                     [user], 
                     function(err, results) {
                         if (err) {          //Query Error (Rollback and release conn)
@@ -45,7 +45,7 @@ const getAllImages = (user) => {
             });
         });
     })
-};
+}
 
 const getOneImage = (down) => {
     let key = 0
@@ -105,7 +105,7 @@ const getOneImage = (down) => {
             });
         });
     })
-};
+}
 
 const getImageTag = (down) => {
     let key = 0
@@ -165,7 +165,7 @@ const getImageTag = (down) => {
             });
         });
     })
-};
+}
 
 const getOwnerImages = (user) => {
     return new Promise((resolve, reject)=> {
@@ -210,7 +210,7 @@ const getOwnerImages = (user) => {
             });
         });
     })
-};
+}
 
 const getSharedImages = (user) => {
     return new Promise((resolve, reject)=> {
@@ -255,7 +255,7 @@ const getSharedImages = (user) => {
             });
         });
     })
-};
+}
 
 const insertMeta =(url, geo, date, user, name, size, type, down, tags, captured) =>{
     let lastKey = 0
@@ -437,7 +437,6 @@ const editMeta =(geo, date, down, tags, capture) =>{
     });
 }
 
-
 const deleteImage =(down) =>{
     let key = 0
     return new Promise((resolve, reject)=> {
@@ -522,6 +521,5 @@ const deleteImage =(down) =>{
         });
     });
 }
-
 
 module.exports = {getAllImages, getOwnerImages, getSharedImages, insertMeta, deleteImage, getOneImage, editMeta, getImageTag}

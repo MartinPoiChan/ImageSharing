@@ -15,22 +15,8 @@ const maxSize = 50 * 1024 * 1024; // for 50MB?
 const upload = multer({
   storage: fileStorageEngine,
   fileFilter: (req, file, cb) => {
-    if (
-      file.mimetype == "image/png" ||
-      file.mimetype == "image/jpg" ||
-      file.mimetype == "image/jpeg"
-    ) {
-      cb(null, true);
-    } 
-    else {
-      cb(null, false);
-      return cb(new Error("Only .png, .jpg and .jpeg format allowed!"));
-    }
+    cb(null, true);
   },
   limits: { fileSize: maxSize },
 })
-
-const imageUpload = (meta, tags)=>{
-  
-}
 module.exports={upload};

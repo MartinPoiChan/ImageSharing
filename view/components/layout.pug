@@ -18,9 +18,8 @@ html
     .site
       .site__header
         include nav.pug
-        if loggedIn
-          p.user #{name} #{last}
-          p.user #{role}:
+        if loggedin
+          p.user #{fname} #{lname}
         != messages('messages', locals)
       .site__content(onclick = "close()")
         block content

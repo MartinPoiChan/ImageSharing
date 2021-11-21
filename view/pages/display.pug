@@ -1,41 +1,45 @@
 extends ../components/layout
 block content
-    #records.records2
-        form#live-search.styled(action='' method='post' name='searchform')
-            fieldset#search
-                span
-                    input#filter.s(type='text' onclick="this.value='';" onfocus='this.select()')
-                span
-                    input#filter3.s(type='text' onclick="this.value='';" onfocus='this.select()')
-    main.main
-        .container
-            each result in results
-                #records.records2
-                    #article0.recordContainer
-                        .lineDivide
-                        .card
-                            span.listName #{result.img_name}
-                            span.listDate #{result.date}
-                            span.listLocation #{result.location}
-                            .card-image
-                                a(href='/uploads/'+result.down_name data-fancybox='gallery' data-caption=result.img_name+'<br><h1>THis s</h1>')
-                                    img(src='/uploads/'+result.down_name alt= result.img_name)
-                            .card-foot
-                                .icons
-                                    form(ref='uploadForm'  
-                                        id='down'  
-                                        action='/delete/'+result.down_name
-                                        method='post'  
-                                        ) 
-                                        button.btn-file#upload(type='submit') delete
-                                    form(ref='uploadForm'  
-                                        id='down'  
-                                        action='/about21/'+result.down_name
-                                        method='post'  
-                                        ) 
-                                        button.btn-file#upload(type='submit')
-                                            span(class="glyphicon glyphicon-search") Download
-                                            //Get the icons to work
+    if results.length > 0 
+        #records.records2
+            form#live-search.styled(action='' method='post' name='searchform')
+                fieldset#search
+                    span
+                        input#filter.s(type='text' onclick="this.value='';" onfocus='this.select()')
+                    span
+                        input#filter3.s(type='text' onclick="this.value='';" onfocus='this.select()')
+        main.main
+            .container
+                each result in results
+                    #records.records2
+                        #article0.recordContainer
+                            .lineDivide
+                            .card
+                                span.listName #{result.img_name}
+                                span.listDate #{result.date}
+                                span.listLocation #{result.location}
+                                .card-image
+                                    a(href='/uploads/'+result.down_name data-fancybox='gallery' data-caption='<h3>'+result.img_name+'</h3><p style="text-align:left;"> <b>tags:</b> '+result.tags+'</p><p style="text-align:left;"> <b> location: </b> '+result.location+'</p>'+'</p><p style="text-align:left;"> <b> date: &#09</b> '+result.capture_date+'</p>'+'</p><p style="text-align:left;"> <b>captured by: </b> '+result.captured_by+'</p>')
+                                        img(src='/uploads/'+result.down_name alt= result.img_name) 
+                                .card-foots
+                                    .icons
+                                        .dropdown
+                                            button.btn.btn-primary.dropdown-toggle(type='button' data-toggle='dropdown')
+                                                | Action
+                                                span.caret
+                                            ul.dropdown-menu
+                                                li
+                                                    a(href='/delete/'+result.down_name) Delete
+                                                li
+                                                    a(href='/about21/'+result.down_name) Download
+                                                li
+                                                    a(href='/edit/'+result.down_name) Edit
+                                                li
+                                                    a(href='/permission/'+result.down_name) Access
+                                                li
+                                                    a(href='/share/'+result.down_name) Share
+    else 
+        h1 No images found
     script.
         $(".s").keyup(function (event) {
         // Retrieve the input field text and reset the count to zero

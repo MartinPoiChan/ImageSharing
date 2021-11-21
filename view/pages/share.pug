@@ -1,7 +1,7 @@
 extends ../components/layout
 block content
   h1 Permissions
-  if results.length !== 'undefined'
+  if results.length > 0
     table#tableID
       thead
       tr
@@ -20,19 +20,9 @@ block content
                 td(data-label='grant')
                     form(ref='uploadForm'  
                         id='share'  
-                        action='/permission/add/'+down+'/'+result.user_id
+                        action='/share/'+down+'/'+result.user_id
                         method='post'  
                         ) 
                         button.btn-file#upload(type='submit') Grant
-              if result.access == 0
-                td(data-label='') -
-              else
-                td(data-label='remove')
-                    form(ref='uploadForm'  
-                        id='share'  
-                        action='/permission/remove/'+down+'/'+result.user_id
-                        method='post'  
-                        ) 
-                        button.btn-file#upload(type='submit') Remove
   else 
-    h1 No images found
+    h3 No other users have access to this photo
